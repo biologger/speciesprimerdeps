@@ -1,0 +1,7 @@
+numpy
+biopython
+wget
+flask
+flask-wtf
+mydaemon
+gunicorn
