@@ -47,7 +47,7 @@ RUN cpanm -f Bio::Roary
 COPY requirements.txt /
 RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
-RUN pip install psutil
+RUN pip2 install psutil
 
 # install prokka
 RUN cd /home/programs && git clone https://github.com/tseemann/prokka.git \
