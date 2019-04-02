@@ -95,5 +95,5 @@ http://microbesonline.org/fasttree/FastTree.c \
 
 # install frontail
 RUN cd /home/programs && wget -nv \
-https://github.com/mthenw/frontail/releases/download/v4.5.4/frontail-linux
-
+https://github.com/mthenw/frontail/releases/download/v4.5.4/frontail-linux \
+&& chmod +x frontail-linux
