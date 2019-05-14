@@ -39,7 +39,6 @@ RUN apt-get update && apt-get install -y \
 # create program directory
 RUN mkdir /home/programs && mkdir /home/primerdesign
 ENV PATH="/home/programs/:${PATH}"
-ENV BLASTDB="/home/blastdb"
 
 RUN cpanm -f Bio::Roary
 
@@ -54,11 +53,12 @@ RUN cd /home/programs && git clone https://github.com/tseemann/prokka.git \
 && prokka/bin/prokka --setupdb
 ENV PATH="/home/programs/prokka/bin/:${PATH}"
 
-# install blast-2.8.1+
-RUN cd /home/programs && wget \
-ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/ncbi-blast-2.8.1+-x64-linux.tar.gz \
-&& tar xvf ncbi-blast-2.8.1+-x64-linux.tar.gz
-ENV PATH="/home/programs/ncbi-blast-2.8.1+/bin/:${PATH}"
+# install latest ncbi-blast
+RUN cd /home/programs && mkdir ncbi-blast && wget -nv -r --no-parent --no-directories \
+-A 'ncbi-blast-*+-x64-linux.tar.gz' ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/ \
+&& tar -xzf ncbi-blast-*+-x64-linux.tar.gz -C ncbi-blast --strip-components 1
+ENV PATH="/home/programs/ncbi-blast/bin/:${PATH}"
+ENV BLASTDB="/home/blastdb"
 
 # install primer3
 RUN cd /home/programs && git clone https://github.com/primer3-org/primer3.git primer3 \
@@ -97,3 +97,6 @@ http://microbesonline.org/fasttree/FastTree.c \
 RUN cd /home/programs && wget -nv \
 https://github.com/mthenw/frontail/releases/download/v4.5.4/frontail-linux \
 && chmod +x frontail-linux
+
+# remove archives
+RUN cd /home/programs && rm *.tar.gz
