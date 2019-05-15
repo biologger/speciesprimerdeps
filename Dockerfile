@@ -29,7 +29,6 @@ RUN apt-get update && apt-get install -y \
 	libdatetime-perl \
 	libxml-simple-perl \
 	libdigest-md5-perl \
-	libjson-perl \
 	default-jre \
 	emboss \
 	python3-pip \
@@ -69,18 +68,18 @@ ENV PATH="/home/programs/primer3/:${PATH}"
 # libdg required by mfold
 RUN cd /home/programs && wget -nv \
 https://github.com/libgd/libgd/releases/download/gd-2.2.5/libgd-2.2.5.tar.gz \
-&& tar xvf libgd-2.2.5.tar.gz && cd libgd-2.2.5 && ./configure && make && make install
+&& tar xf libgd-2.2.5.tar.gz && cd libgd-2.2.5 && ./configure && make && make install
 
 # install mfold 3.6
 RUN cd /home/programs && wget -nv \
 http://unafold.rna.albany.edu/download/mfold-3.6.tar.gz \
-&& tar xvf mfold-3.6.tar.gz \
+&& tar xf mfold-3.6.tar.gz \
 && cd mfold-3.6 && ./configure && make && make install
 
 # install MFEPrimer2.0
 RUN cd /home/programs && wget -nv \
 https://github.com/quwubin/MFEprimer/archive/v2.0.tar.gz \
-&& tar xvf v2.0.tar.gz
+&& tar xf v2.0.tar.gz
 
 ENV PATH="/home/programs/MFEprimer-2.0/:${PATH}"
 
