@@ -33,7 +33,9 @@ RUN apt-get update && apt-get install -y \
 	emboss \
 	python3-pip \
 	python3-dev \
-	python-pip
+	python-pip \
+	tzdata \
+	&& apt-get clean
 
 
 # create program directory
