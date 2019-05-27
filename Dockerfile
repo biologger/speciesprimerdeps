@@ -29,6 +29,7 @@ RUN apt-get update && apt-get install -y \
 	libdatetime-perl \
 	libxml-simple-perl \
 	libdigest-md5-perl \
+	libjson-perl \
 	default-jre \
 	emboss \
 	python3-pip \
