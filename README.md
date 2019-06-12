@@ -1,2 +1,2 @@
 # speciesprimerdeps
-This repository only contains the Dockerfile and a list of python dependencies to build a Docker image for the speciesprimer pipeline.
+This repository contains the Dockerfile and a list of python dependencies to build a Docker image with all dependencies for the speciesprimer pipeline.
