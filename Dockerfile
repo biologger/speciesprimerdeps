@@ -88,18 +88,12 @@ http://unafold.rna.albany.edu/download/mfold-3.6.tar.gz \
 RUN cd /home/programs && wget -nv \
 https://github.com/quwubin/MFEprimer/archive/v2.0.tar.gz \
 && tar xf v2.0.tar.gz
-
 ENV PATH="/home/programs/MFEprimer-2.0/:${PATH}"
 
 # install FastTreeMP
 RUN cd /home/programs && wget -nv \
 http://microbesonline.org/fasttree/FastTree.c \
 && gcc -DOPENMP -fopenmp -O3 -finline-functions -funroll-loops -Wall -o fasttree FastTree.c -lm
-
-# install frontail
-RUN cd /home/programs && wget -nv \
-https://github.com/mthenw/frontail/releases/download/v4.5.4/frontail-linux \
-&& chmod +x frontail-linux
 
 # remove archives
 RUN cd /home/programs && rm *.tar.gz
