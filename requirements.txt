@@ -5,3 +5,4 @@ flask
 flask-wtf
 mydaemon
 gunicorn
+pytest
