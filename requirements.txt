@@ -6,3 +6,5 @@ flask-wtf
 mydaemon
 gunicorn
 pytest
+pytest-cov
+codecov

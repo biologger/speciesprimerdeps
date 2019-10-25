@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y \
 	apt-utils \
 	nano \
 	texlive-font-utils \
+	curl \
 	wget \
 	git \
 	unzip \
@@ -85,9 +86,7 @@ http://unafold.rna.albany.edu/download/mfold-3.6.tar.gz \
 && cd mfold-3.6 && ./configure && make && make install
 
 # install MFEPrimer2.0
-RUN cd /home/programs && wget -nv \
-https://github.com/quwubin/MFEprimer/archive/v2.0.tar.gz \
-&& tar xf v2.0.tar.gz
+RUN cd /home/programs && git clone https://github.com/quwubin/MFEprimer-2.0.git
 
 ENV PATH="/home/programs/MFEprimer-2.0/:${PATH}"
 
