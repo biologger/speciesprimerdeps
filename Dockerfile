@@ -40,8 +40,8 @@ RUN apt-get update && apt-get install -y \
 	&& apt-get clean
 
 # create program directory
-RUN mkdir /home/programs && mkdir /home/primerdesign
-ENV PATH="/home/programs/:${PATH}"
+RUN mkdir /programs && mkdir /primerdesign && mkdir /blastdb
+ENV PATH="/programs/:${PATH}"
 
 RUN cpanm -f Bio::Roary
 
@@ -53,52 +53,52 @@ RUN pip2 install --upgrade pip
 RUN pip2 install psutil
 
 # install latest ncbi-blast
-RUN cd /home/programs && mkdir ncbi-blast && wget -nv -r --no-parent --no-directories \
+RUN cd /programs && mkdir ncbi-blast && wget -nv -r --no-parent --no-directories \
 -A 'ncbi-blast-*+-x64-linux.tar.gz' ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/ \
 && tar -xzf ncbi-blast-*+-x64-linux.tar.gz -C ncbi-blast --strip-components 1
-ENV PATH="/home/programs/ncbi-blast/bin/:${PATH}"
-ENV BLASTDB="/home/blastdb"
+ENV PATH="/programs/ncbi-blast/bin/:${PATH}"
+ENV BLASTDB="/blastdb"
 
 # install tbl2asn
-RUN cd /home/programs && wget -nv \
+RUN cd /programs && wget -nv \
 ftp://ftp.ncbi.nih.gov/toolbox/ncbi_tools/converters/by_program/tbl2asn/linux.tbl2asn.gz \
 && gunzip linux.tbl2asn.gz
 
 # install prokka
-RUN cd /home/programs && git clone https://github.com/tseemann/prokka.git \
+RUN cd /programs && git clone https://github.com/tseemann/prokka.git \
 && prokka/bin/prokka --setupdb
-ENV PATH="/home/programs/prokka/bin/:${PATH}"
+ENV PATH="/programs/prokka/bin/:${PATH}"
 
 # install primer3
-RUN cd /home/programs && git clone https://github.com/primer3-org/primer3.git primer3 \
+RUN cd /programs && git clone https://github.com/primer3-org/primer3.git primer3 \
 && cd primer3/src && make && make test
-ENV PATH="/home/programs/primer3/:${PATH}"
+ENV PATH="/programs/primer3/:${PATH}"
 
 # libdg required by mfold
-RUN cd /home/programs && wget -nv \
+RUN cd /programs && wget -nv \
 https://github.com/libgd/libgd/releases/download/gd-2.2.5/libgd-2.2.5.tar.gz \
 && tar xf libgd-2.2.5.tar.gz && cd libgd-2.2.5 && ./configure && make && make install
 
 # install mfold 3.6
-RUN cd /home/programs && wget -nv \
+RUN cd /programs && wget -nv \
 http://unafold.rna.albany.edu/download/mfold-3.6.tar.gz \
 && tar xf mfold-3.6.tar.gz \
 && cd mfold-3.6 && ./configure && make && make install
 
 # install MFEPrimer2.0
-RUN cd /home/programs && git clone https://github.com/quwubin/MFEprimer-2.0.git
+RUN cd /programs && git clone https://github.com/quwubin/MFEprimer-2.0.git
 
-ENV PATH="/home/programs/MFEprimer-2.0/:${PATH}"
+ENV PATH="/programs/MFEprimer-2.0/:${PATH}"
 
 # install FastTreeMP
-RUN cd /home/programs && wget -nv \
+RUN cd /programs && wget -nv \
 http://microbesonline.org/fasttree/FastTree.c \
 && gcc -DOPENMP -fopenmp -O3 -finline-functions -funroll-loops -Wall -o fasttree FastTree.c -lm
 
 # install frontail
-RUN cd /home/programs && wget -nv \
+RUN cd /programs && wget -nv \
 https://github.com/mthenw/frontail/releases/download/v4.5.4/frontail-linux \
 && chmod +x frontail-linux
 
 # remove archives
-RUN cd /home/programs && rm *.tar.gz
+RUN cd /programs && rm *.tar.gz
