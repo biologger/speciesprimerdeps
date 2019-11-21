@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
 
-MAINTAINER biologger
+LABEL maintainer="biologger@protonmail.com"
 
 RUN apt-get update && apt-get install -y \
 	apt-utils \
@@ -40,7 +40,7 @@ RUN apt-get update && apt-get install -y \
 	&& apt-get clean
 
 # create program directory
-RUN mkdir /programs && mkdir /primerdesign && mkdir /blastdb
+RUN mkdir /programs && mkdir /primerdesign && mkdir /blastdb && mkdir /programs/tmp
 ENV PATH="/programs/:${PATH}"
 
 RUN cpanm -f Bio::Roary
