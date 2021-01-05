@@ -9,3 +9,5 @@ pytest
 pytest-cov
 codecov
 pyani
+psutil
+mfeprimer-py3

@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:20.04
 
 LABEL maintainer="biologger@protonmail.com"
 
@@ -35,7 +35,6 @@ RUN apt-get update && apt-get install -y \
 	emboss \
 	python3-pip \
 	python3-dev \
-	python-pip \
 	tzdata \
 	&& apt-get clean
 
@@ -49,8 +48,6 @@ RUN cpanm -f Bio::Roary
 COPY requirements.txt /
 RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
-RUN pip2 install --upgrade pip
-RUN pip2 install psutil
 
 # install latest ncbi-blast
 RUN cd /programs && mkdir ncbi-blast && wget -nv -r --no-parent --no-directories \
@@ -85,11 +82,6 @@ http://unafold.rna.albany.edu/download/mfold-3.6.tar.gz \
 && tar xf mfold-3.6.tar.gz \
 && cd mfold-3.6 && ./configure && make && make install
 
-# install MFEPrimer2.0
-RUN cd /programs && git clone https://github.com/quwubin/MFEprimer-2.0.git
-
-ENV PATH="/programs/MFEprimer-2.0/:${PATH}"
-
 # install FastTreeMP
 RUN cd /programs && wget -nv \
 http://microbesonline.org/fasttree/FastTree.c \
@@ -99,22 +91,6 @@ http://microbesonline.org/fasttree/FastTree.c \
 RUN cd /programs && wget -nv \
 https://github.com/mthenw/frontail/releases/download/v4.5.4/frontail-linux \
 && chmod +x frontail-linux
-
-# install mummer
-RUN cd /programs && wget -nv \
-https://github.com/mummer4/mummer/releases/download/v3.9.4alpha/mummer-3.9.4alpha.tar.gz \
-&& tar xf mummer-3.9.4alpha.tar.gz && cd mummer-3.9.4alpha && ./configure && make && make install && ldconfig
-
-# install mash
-RUN cd /programs && wget -nv \
-https://github.com/marbl/Mash/releases/download/v2.2/mash-Linux64-v2.2.tar \
-&& tar xf mash-Linux64-v2.2.tar
-ENV PATH="/programs/mash-Linux64-v2.2/:${PATH}"
-
-#install Bacsort
-RUN cd /programs && git clone https://github.com/rrwick/Bacsort
-ENV PATH="/programs/Bacsort/scripts:${PATH}"
-
 
 # remove archives
 RUN cd /programs && rm *.tar.gz
