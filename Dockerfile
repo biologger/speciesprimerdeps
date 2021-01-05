@@ -100,5 +100,21 @@ RUN cd /programs && wget -nv \
 https://github.com/mthenw/frontail/releases/download/v4.5.4/frontail-linux \
 && chmod +x frontail-linux
 
+# install mummer
+RUN cd /programs && wget -nv \
+https://github.com/mummer4/mummer/releases/download/v3.9.4alpha/mummer-3.9.4alpha.tar.gz \
+&& tar xf mummer-3.9.4alpha.tar.gz && cd mummer-3.9.4alpha && ./configure && make && make install && ldconfig
+
+# install mash
+RUN cd /programs && wget -nv \
+https://github.com/marbl/Mash/releases/download/v2.2/mash-Linux64-v2.2.tar \
+&& tar xf mash-Linux64-v2.2.tar
+ENV PATH="/programs/mash-Linux64-v2.2/:${PATH}"
+
+#install Bacsort
+RUN cd /programs && git clone https://github.com/rrwick/Bacsort
+ENV PATH="/programs/Bacsort/scripts:${PATH}"
+
+
 # remove archives
 RUN cd /programs && rm *.tar.gz
