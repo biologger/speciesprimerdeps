@@ -80,7 +80,7 @@ https://github.com/libgd/libgd/releases/download/gd-2.2.5/libgd-2.2.5.tar.gz \
 
 # install mfold 3.6
 RUN cd /programs && wget -nv \
-http://unafold.rna.albany.edu/download/mfold-3.6.tar.gz \
+http://www.unafold.org/download/mfold-3.6.tar.gz \
 && tar xf mfold-3.6.tar.gz \
 && cd mfold-3.6 && ./configure && make && make install
 
