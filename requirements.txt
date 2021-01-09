@@ -10,4 +10,5 @@ pytest-cov
 codecov
 pyani
 psutil
+ncbi-genome-download
 mfeprimer-py3
