@@ -45,6 +45,7 @@ RUN pip install -r requirements.txt
 RUN mkdir /programs && mkdir /primerdesign && mkdir /blastdb && mkdir /programs/tmp
 ENV PATH="/programs/:${PATH}"
 
+ENV ac_cv_func_malloc_0_nonnull=yes
 # libdg required by mfold
 RUN cd /programs && wget -nv \
 https://github.com/libgd/libgd/releases/download/gd-2.2.5/libgd-2.2.5.tar.gz \
