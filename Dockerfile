@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
 	curl \
   unzip \
   parallel \
+  build-essential \
 	&& apt-get clean
 
 SHELL [ "/bin/bash", "--login", "-c" ]
