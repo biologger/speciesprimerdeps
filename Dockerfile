@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
   unzip \
   parallel \
   build-essential \
+	gfortran \
 	&& apt-get clean
 
 SHELL [ "/bin/bash", "--login", "-c" ]
