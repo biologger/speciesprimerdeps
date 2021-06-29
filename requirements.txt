@@ -1,14 +1,2 @@
-numpy
-biopython
-wget
-flask
-flask-wtf
 mydaemon
-gunicorn
-pytest
-pytest-cov
-codecov
-pyani
-psutil
-ncbi-genome-download
 mfeprimer-py3

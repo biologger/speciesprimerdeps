@@ -1,0 +1,27 @@
+name: speciesprimerdeps
+channels:
+  - defaults
+  - bioconda
+  - conda-forge
+dependencies:
+  - blast
+  - tbl2asn
+  - mafft
+  - prank
+  - roary
+  - prokka
+  - primer3
+  - fasttree
+  - emboss
+  - biopython
+  - numpy
+  - wget
+  - flask
+  - flask-wtf
+  - gunicorn
+  - pytest
+  - pytest-cov
+  - codecov
+  - pyani
+  - psutil
+  - ncbi-genome-download
