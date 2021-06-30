@@ -6,15 +6,15 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 LABEL maintainer="biologger@protonmail.com"
 
 RUN apt-get update && apt-get install -y \
-	apt-utils \
-	nano \
-	texlive-font-utils \
-	curl \
+  apt-utils \
+  nano \
+  texlive-font-utils \
+  curl \
   unzip \
   parallel \
   build-essential \
-	gfortran \
-	&& apt-get clean
+  gfortran \
+  && apt-get clean
 
 SHELL [ "/bin/bash", "--login", "-c" ]
 
@@ -62,4 +62,6 @@ RUN cd /programs && wget -nv \
 https://github.com/mthenw/frontail/releases/download/v4.9.2/frontail-linux \
 && chmod +x frontail-linux
 
-ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "base", "/bin/bash"]
+# remove archives
+RUN cd /programs && rm *.tar.gz
+
