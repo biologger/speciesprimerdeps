@@ -18,20 +18,6 @@ RUN apt-get update && apt-get install -y \
 
 SHELL [ "/bin/bash", "--login", "-c" ]
 
-# Create a non-root user
-ARG username=primer
-ARG uid=1000
-ARG gid=100
-ENV USER $username
-ENV UID $uid
-ENV GID $gid
-ENV HOME /home/$USERRUN adduser --disabled-password \
-    --gecos "Non-root user" \
-    --uid $UID \
-    --gid $GID \
-    --home $HOME \
-    $USER
-
 COPY speciesprimerenv.yaml /
 RUN micromamba install -y -n base -f speciesprimerenv.yaml && \
     micromamba clean --all --yes
@@ -64,4 +50,19 @@ https://github.com/mthenw/frontail/releases/download/v4.9.2/frontail-linux \
 
 # remove archives
 RUN cd /programs && rm *.tar.gz
+
+# Create a non-root user
+ARG username=primer
+ARG uid=1000
+ARG gid=100
+ENV USER $username
+ENV UID $uid
+ENV GID $gid
+ENV HOME /home/$USER
+RUN adduser --disabled-password \
+    --gecos "Non-root user" \
+    --uid $UID \
+    --gid $GID \
+    --home $HOME \
+    $USER
 
