@@ -1,3 +1,2 @@
 mydaemon
-mfeprimer-py3
 wget
