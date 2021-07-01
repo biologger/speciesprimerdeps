@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y \
   parallel \
   build-essential \
   gfortran \
+  git \
   && apt-get clean
 
 SHELL [ "/bin/bash", "--login", "-c" ]
@@ -48,8 +49,14 @@ RUN cd /programs && wget -nv \
 https://github.com/mthenw/frontail/releases/download/v4.9.2/frontail-linux \
 && chmod +x frontail-linux
 
+RUN git clone https://github.com/biologger/MFEprimer-py3.git \ 
+&& cd mfeprimer-py3 && python3 setup.py install && python3 setup.py install_data
+
 # remove archives
 RUN cd /programs && rm *.tar.gz
+
+ENV BLASTDB="/blastdb"
+ENV BLAST_USAGE_REPORT=FALSE
 
 # Create a non-root user
 ARG username=primer
