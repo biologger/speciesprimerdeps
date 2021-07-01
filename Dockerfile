@@ -50,7 +50,7 @@ https://github.com/mthenw/frontail/releases/download/v4.9.2/frontail-linux \
 && chmod +x frontail-linux
 
 RUN git clone https://github.com/biologger/MFEprimer-py3.git \ 
-&& cd mfeprimer-py3 && python3 setup.py install && python3 setup.py install_data
+&& cd MFEprimer-py3 && python3 setup.py install && python3 setup.py install_data
 
 # remove archives
 RUN cd /programs && rm *.tar.gz
