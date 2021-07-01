@@ -36,7 +36,8 @@ ENV ac_cv_func_malloc_0_nonnull=yes
 # libdg required by mfold
 RUN cd /programs && wget -nv \
 https://github.com/libgd/libgd/releases/download/gd-2.2.5/libgd-2.2.5.tar.gz \
-&& tar xf libgd-2.2.5.tar.gz && cd libgd-2.2.5 && ./configure && make && make install
+&& tar xf libgd-2.2.5.tar.gz && cd libgd-2.2.5 && ./configure && make && make install \
+&& echo "/usr/local/lib" >> /etc/ld.so.conf && ldconfig
 
 # install mfold 3.6
 RUN cd /programs && wget -nv \
