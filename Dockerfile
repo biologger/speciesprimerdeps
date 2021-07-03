@@ -50,11 +50,14 @@ RUN cd /programs && wget -nv \
 https://github.com/mthenw/frontail/releases/download/v4.9.2/frontail-linux \
 && chmod +x frontail-linux
 
-RUN git clone https://github.com/biologger/MFEprimer-py3.git \ 
+RUN cd /programs && git clone https://github.com/biologger/MFEprimer-py3.git \ 
 && cd MFEprimer-py3 && python3 setup.py install && python3 setup.py install_data
 
 # remove archives
 RUN cd /programs && rm *.tar.gz
+
+# Remove Bug "Use of uninitialized value in require at .../Encode.pm line 61."
+RUN enc2xs -C
 
 ENV BLASTDB="/blastdb"
 ENV BLAST_USAGE_REPORT=FALSE
