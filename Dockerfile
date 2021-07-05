@@ -47,7 +47,7 @@ http://www.unafold.org/download/mfold-3.6.tar.gz \
 
 # install frontail
 RUN cd /programs && wget -nv \
-https://github.com/mthenw/frontail/releases/download/v4.9.2/frontail-linux \
+https://github.com/mthenw/frontail/releases/download/v4.8.0/frontail-linux \
 && chmod +x frontail-linux
 
 RUN cd /programs && git clone https://github.com/biologger/MFEprimer-py3.git \ 
