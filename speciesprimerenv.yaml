@@ -22,4 +22,7 @@ dependencies:
   - pyani
   - psutil
   - notebook
+  - jupyter_contrib_nbextensions
+  - ipywidgets
+  - voila
   - ncbi-genome-download
