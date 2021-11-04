@@ -16,9 +16,6 @@ dependencies:
   - biopython
   - numpy
   - wget
-  - flask
-  - flask-wtf
-  - gunicorn
   - pytest
   - pytest-cov
   - codecov

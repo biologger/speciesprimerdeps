@@ -1,4 +1,4 @@
-FROM mambaorg/micromamba
+FROM ubuntu:focal-20211006
 
 ENV TZ=Europe/Zurich
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
@@ -14,14 +14,27 @@ RUN apt-get update && apt-get install -y \
   parallel \
   build-essential \
   gfortran \
+  wget \
   git \
+  tini \
   && apt-get clean
 
 SHELL [ "/bin/bash", "--login", "-c" ]
 
+RUN wget -nv https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
+&& chmod +x Miniconda3-latest-Linux-x86_64.sh \
+&& bash Miniconda3-latest-Linux-x86_64.sh -b \
+&& rm Miniconda3-latest-Linux-x86_64.sh
+
+ENV PATH=/root/miniconda3/bin:${PATH}
+
+RUN conda update -y conda && conda install -y -c anaconda python=3.7 \
+&& conda install -y -c conda-forge mamba \
+&& conda clean -a -y
+
 COPY speciesprimerenv.yaml /
-RUN micromamba install -y -n base -f speciesprimerenv.yaml && \
-    micromamba clean --all --yes
+RUN mamba update -y -n base -f speciesprimerenv.yaml && \
+    mamba clean --all --yes
 
 # install additional python dependencies
 COPY requirements.txt /
@@ -45,12 +58,7 @@ http://www.unafold.org/download/mfold-3.6.tar.gz \
 && tar xf mfold-3.6.tar.gz \
 && cd mfold-3.6 && ./configure && make && make install
 
-# install frontail
-RUN cd /programs && wget -nv \
-https://github.com/mthenw/frontail/releases/download/v4.8.0/frontail-linux \
-&& chmod +x frontail-linux
-
-RUN cd /programs && git clone https://github.com/biologger/MFEprimer-py3.git \ 
+RUN cd /programs && git clone https://github.com/biologger/MFEprimer-py3.git \
 && cd MFEprimer-py3 && python3 setup.py install && python3 setup.py install_data
 
 # remove archives
@@ -76,4 +84,3 @@ RUN adduser --disabled-password \
     --gid $GID \
     --home $HOME \
     $USER
-
