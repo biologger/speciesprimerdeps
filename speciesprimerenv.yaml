@@ -1,4 +1,4 @@
-name: speciesprimerdeps
+name: base
 channels:
   - defaults
   - bioconda
@@ -21,4 +21,5 @@ dependencies:
   - codecov
   - pyani
   - psutil
+  - notebook
   - ncbi-genome-download

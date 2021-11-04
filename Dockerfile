@@ -21,19 +21,23 @@ RUN apt-get update && apt-get install -y \
 
 SHELL [ "/bin/bash", "--login", "-c" ]
 
+ENV PATH=/opt/conda/bin:${PATH}
+
 RUN wget -nv https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
 && chmod +x Miniconda3-latest-Linux-x86_64.sh \
-&& bash Miniconda3-latest-Linux-x86_64.sh -b \
+&& mkdir -p /opt \
+&& bash Miniconda3-latest-Linux-x86_64.sh -b -p /opt/conda \
+&& ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh \
+&& echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
+echo "conda activate base" >> ~/.bashrc \
 && rm Miniconda3-latest-Linux-x86_64.sh
 
-ENV PATH=/root/miniconda3/bin:${PATH}
-
 RUN conda update -y conda && conda install -y -c anaconda python=3.7 \
-&& conda install -y -c conda-forge mamba \
-&& conda clean -a -y
+&& conda install -y -c conda-forge -n base mamba \
+&& conda clean -afy && conda init bash
 
 COPY speciesprimerenv.yaml /
-RUN mamba update -y -n base -f speciesprimerenv.yaml && \
+RUN mamba env update -n base -f /speciesprimerenv.yaml && \
     mamba clean --all --yes
 
 # install additional python dependencies
